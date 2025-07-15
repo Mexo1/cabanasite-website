@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <title>Recenzii - Pensiunea Mea</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <style>
+    body {
+      background: #f8f8f8;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .main-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 220px;
+      background: #fff;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.07);
+      padding: 40px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 100%;
+      padding-left: 32px;
+    }
+    .sidebar nav a {
+      color: #333;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 8px 0;
+      transition: color 0.2s;
+    }
+    .sidebar nav a:hover {
+      color: #007bff;
+    }
+    .container {
+      flex: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 0 40px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .container h1 {
+      text-align: center;
+      margin-bottom: 32px;
+      color: #2b4c7e;
+      font-size: 2.3rem;
+      font-weight: 600;
+    }
+    .recenzii-lista {
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin-top: 24px;
+    }
+    .recenzie {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.08);
+      padding: 24px 32px;
+      font-size: 1.1rem;
+      color: #333;
+      position: relative;
+    }
+    .recenzie .autor {
+      font-weight: bold;
+      color: #00796b;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .recenzie .data {
+      font-size: 0.95rem;
+      color: #888;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .recenzie .text {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-layout">
+    <aside class="sidebar">
+      <nav>
+        <a href="/">Acasă</a>
+        <a href="/camere">Camere</a>
+        <a href="/galerie">Galerie</a>
+        <a href="/contact">Contact</a>
+        <a href="/sarah">Despre Sarah</a>
+        <a href="/recenzii">Recenzii</a>
+      </nav>
+    </aside>
+    <div class="container">
+      <h1>Recenzii oaspeți</h1>
+      <form method="post" action="/recenzii" class="form-recenzii">
+        <label for="autor">Nume</label>
+        <input type="text" id="autor" name="autor" required />
+        <label for="text">Recenzie</label>
+        <textarea id="text" name="text" rows="4" required></textarea>
+        <button type="submit">Adaugă recenzia</button>
+      </form>
+      {% if mesaj %}
+        <p style="color: green; margin-top: 18px; font-weight: bold;">{{ mesaj }}</p>
+      {% endif %}
+      <div class="recenzii-lista">
+        {% for recenzie in recenzii %}
+        <div class="recenzie">
+          <span class="autor">{{ recenzie.autor }}</span>
+          <span class="data">{{ recenzie.data }}</span>
+          <span class="text">{{ recenzie.text }}</span>
+          <form method="post" action="/recenzii" style="margin-top:10px;">
+            <input type="hidden" name="delete_index" value="{{ loop.index0 }}" />
+            <input type="password" name="admin_pass" placeholder="Parolă admin" style="padding:6px;border-radius:6px;border:1px solid #ccc;margin-right:8px;" required />
+            <button type="submit" style="background:#e53935;color:#fff;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;">Șterge</button>
+          </form>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

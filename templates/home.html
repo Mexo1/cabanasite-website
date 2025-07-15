@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <title>Acasă - Pensiunea Mea</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="main-layout">
+    <aside class="sidebar">
+      <nav>
+        <a href="/">Acasă</a>
+        <a href="/camere">Camere</a>
+        <a href="/galerie">Galerie</a>
+        <a href="/contact">Contact</a>
+        <a href="/sarah">Despre Sarah</a>
+        <a href="/recenzii">Recenzii</a>
+      </nav>
+    </aside>
+    <div class="container">
+      <h1>Bine ați venit la Pensiunea Mea!</h1>
+      <p>Oferim cazare confortabilă, mâncare tradițională și peisaje superbe.</p>
+    </div>
+  </div>
+  <style>
+    body {
+      background: #f8f8f8;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .main-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 220px;
+      background: #fff;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.07);
+      padding: 40px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 100%;
+      padding-left: 32px;
+    }
+    .sidebar nav a {
+      color: #333;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 8px 0;
+      transition: color 0.2s;
+    }
+    .sidebar nav a:hover {
+      color: #007bff;
+    }
+    .container {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .container h1 {
+      text-align: center;
+    }
+    .container p {
+      text-align: center;
+      font-size: 1.3rem;
+      margin-top: 18px;
+    }
+  </style>
+</body>
+</html>

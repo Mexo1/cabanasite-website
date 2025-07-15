@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <title>Galerie - Pensiunea Mea</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <style>
+    body {
+      background: #f8f8f8;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .main-layout {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: row;
+    }
+    .galerie-container {
+      flex: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 0 40px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .galerie-container h1 {
+      text-align: center;
+      margin-bottom: 32px;
+      color: #2b4c7e;
+      font-size: 2.3rem;
+      font-weight: 600;
+    }
+    .slider-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+    .slider {
+      width: 700px;
+      height: 500px;
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 0 24px rgba(0,0,0,0.12);
+    }
+    .slide {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 0 16px rgba(0,0,0,0.18);
+    }
+    .slide.active {
+      display: block;
+    }
+    .sidebar {
+      width: 220px;
+      background: #fff;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.07);
+      padding: 40px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 100%;
+      padding-left: 32px;
+    }
+    .sidebar nav a {
+      color: #333;
+      text-decoration: none;
+      font-size: 1.2rem;
+      padding: 8px 0;
+      transition: color 0.2s;
+    }
+    .sidebar nav a:hover {
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <body>
+    <div class="main-layout">
+      <aside class="sidebar">
+        <nav>
+          <a href="/">Acasă</a>
+          <a href="/camere">Camere</a>
+          <a href="/galerie">Galerie</a>
+          <a href="/contact">Contact</a>
+          <a href="/sarah">Despre Sarah</a>
+          <a href="/recenzii">Recenzii</a>
+        </nav>
+      </aside>
+      <div class="galerie-container">
+        <h1>Galerie foto</h1>
+        <div class="slider-container">
+          <div class="slider" id="sliderArea">
+            {% set images = [
+              'camera.jpg', 'curte.jpg', 'restaurant.jpg',
+              'terasa1.jpg','terasa2.jpg','terasa3.jpg','terasa4.jpg','terasa5.jpg','terasa6.jpg','terasa7.jpg','terasa8.jpg','terasa9.jpg',
+              'restaurant1.jpg','restaurant2.jpg','restaurant3.jpg','restaurant4.jpg','restaurant5.jpg','restaurant6.jpg','restaurant7.jpg','restaurant8.jpg','restaurant9.jpg',
+              'curte1.jpg','curte2.jpg','curte3.jpg','curte4.jpg','curte5.jpg','curte6.jpg','curte7.jpg','curte8.jpg','curte9.jpg','curte10.jpg',
+              'camere3.jpg','camere4.jpg','camere7.jpg','camere8.jpg','camere9.jpg','camere11.jpg','camere12.jpg','camere13.jpg','camere14.jpg','camere15.jpg','camere16.jpg','camere17.jpg','camere18.jpg','camere19.jpg','camere20.jpg','camere21.jpg','camere22.jpg','camere23.jpg','camere24.jpg'
+            ] %}
+            {% for img in images %}
+              <img src="{{ url_for('static', filename='imagini/' ~ img) }}" alt="{{ img }}" class="slide{% if loop.index0 == 0 %} active{% endif %}" />
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const slides = document.querySelectorAll('.slide');
+      let currentIndex = 0;
+      function showSlide(index) {
+        slides.forEach((img, i) => {
+          img.classList.toggle('active', i === index);
+        });
+      }
+      document.getElementById('sliderArea').onclick = function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        if (x < rect.width / 2) {
+          currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        } else {
+          currentIndex = (currentIndex + 1) % slides.length;
+        }
+        showSlide(currentIndex);
+      };
+      showSlide(currentIndex);
+    </script>
+  </body>
+</body>
+</html>
